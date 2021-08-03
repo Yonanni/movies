@@ -13,7 +13,7 @@ export default class OneComment extends Component {
                 method: "DELETE"
             })
             if (resp.ok){
-                alert("DELETED!!!")
+                this.props.deleteComment(this.props.comment._id)
             } else {
                 alert("Something Wrong in Delete")
             }
