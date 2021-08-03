@@ -1,11 +1,13 @@
 import { Component } from "react";
 import { Button, Form } from "react-bootstrap";
+import ShowComments from "./ShowComments";
+
 
 export default class CommentArea extends Component {
   state = {
       inputs: {
           comment: "",
-          rate: 0,
+          rate: null,
           elementId: this.props.film.imdbID
       }
   };
@@ -26,8 +28,8 @@ export default class CommentArea extends Component {
             }
           );
           if (response.ok){
-              // this.props.newComment(response.json())
-              alert("Successfully Posted")
+              this.props.newComment(await response.json())
+              // alert("Successfully Posted")
               this.setState({
                   inputs: {
                     comment: "",
@@ -57,7 +59,8 @@ export default class CommentArea extends Component {
 
 
   render() {
-    return (
+    return (<>
+     
       <Form onSubmit={this.sendInfo}>
         <Form.Group className="mb-3" >
           <Form.Label>Comment</Form.Label>
@@ -65,11 +68,11 @@ export default class CommentArea extends Component {
         </Form.Group>
         <Form.Group className="mb-3" >
           <Form.Label>Rate</Form.Label>
-          <Form.Control type="number" placeholder="5" value={this.state.inputs.rate} onChange={(e)=> this.handleInputs("rate", e.target.value)} />
+          <Form.Control type="number" value={this.state.inputs.rate} onChange={(e)=> this.handleInputs("rate", e.target.value)} />
         </Form.Group>
         <Button type="submit">Submit</Button>
       </Form>
-
+      </>
     );
   }
 }
